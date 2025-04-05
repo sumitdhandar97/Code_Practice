@@ -1,0 +1,75 @@
+
+Approach 1: Using input.chars() and mapToObj(...)
+
+String input = "Java articles are Awesome";
+Map<Character, Long> charCount = input.chars()   // Returns an IntStream of Unicode code points.
+    .mapToObj(c -> Character.toLowerCase((char) c)) // Converts each int to a Character (here, also converting to lowercase)
+    .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()));
+
+Key Points:
+
+Output Type:
+input.chars() returns an IntStream (each int represents a character's code point).
+After using mapToObj(...), you get a Stream<Character>.
+
+Flexibility & Efficiency:
+This approach avoids creating an intermediate array, making it potentially more efficient.
+It directly works with Unicode code points.
+Additional Processing:
+It allows you to easily apply transformations (like converting to lowercase) during the mapping step.
+
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Approach 2: Using input.split("")
+
+String input = "Java articles are Awesome";
+String[] split = input.split("");
+// Convert array to stream, then process:
+Map<String, Long> charCount = Arrays.stream(split)
+    .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting()));
+
+Key Points:
+
+Output Type:
+input.split("") produces a String[], where each element is a String representing one character (including spaces).
+
+Ease of Use:
+It’s simple to understand and work with when you want to treat each character as a string.
+No casting is needed since each element is already a String.
+
+Performance & Behavior:
+It creates an intermediate array, which might be less efficient for very large strings.
+It treats every element as a String, which might not handle complex Unicode .
+
+When to Use Which:
+
+Use split(""):
+When you prefer simplicity and want to work with characters as strings.
+Suitable for straightforward tasks on small to medium-sized strings.
+
+Use chars().mapToObj(...):
+When you want better performance or need to apply transformations on the fly.
+Preferable when dealing with larger texts or when you need to work with primitive code points.
+---------------------------------------------------------------------------------------------------------
+.mapToObj(s -> Character.toLowerCase(Character.valueOf((char) s)))
+
+This line converts each integer from the stream (representing a character's Unicode code point) into a lowercase Character object.
+
+(char) s : Casts the integer s (from an IntStream) to a primitive char.
+
+Character.valueOf((char) s) : Boxes the primitive char into a Character object.
+
+Character.toLowerCase(...) : Converts the Character to its lowercase equivalent.
+
+So overall, the lambda: s -> Character.toLowerCase(Character.valueOf((char) s))
+takes each code point (an int) from something like input.chars(), converts it to a char,
+then a Character, and finally returns its lowercase version as a Character.
+
+A simpler equivalent (thanks to autoboxing) would be:
+s -> Character.toLowerCase((char) s)
+This achieves the same result by converting each int to a char and then to its lowercase form.
+
+
+
+
+
+
