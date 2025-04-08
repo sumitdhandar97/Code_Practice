@@ -43,7 +43,8 @@ public class FirstNonRepeated {
                 .entrySet()
                 .stream()
                 .filter(entry -> entry.getValue() == 1L)
-                .map(entry -> entry.getKey())
+                //.map(entry -> entry.getKey())
+                .map(Map.Entry::getKey) //using method reference
                 .findFirst()
                 .get();
         System.out.println("First non-repeated character: " + result);
