@@ -25,6 +25,18 @@ public class FirstNonRepeated {
                         .get();
         System.out.println("First non-repeated character: " + result);
 
+        // if max reccuring character asked
+        System.out.println("max recurring character ");
+        Map<String, Long> collect = Arrays.stream(input.split(""))
+                .collect(Collectors.groupingBy(s -> s, Collectors.counting()));
+        System.out.println(collect);
+        Map.Entry<String, Long> max = collect
+                .entrySet()
+                .stream()
+                .max(Comparator.comparing(Map.Entry::getValue))
+                .get();
+        System.out.println(max);
+
         //second approach :recommended
         Arrays.stream(input.split(""))
                 .collect(Collectors.groupingBy(Function.identity(), LinkedHashMap::new, Collectors.counting())) //Store the chars in map with count
