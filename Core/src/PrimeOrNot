@@ -1,0 +1,66 @@
+"Why do we only check up to the square root of a number when checking if it's prime?"
+
+✅ Quick Answer:
+Because if a number has any factors, one of them must be smaller than or equal to its square root.
+
+📦 Example:
+Let’s say the number is 36.
+Its square root is 6.
+All factor pairs of 36:
+
+1 × 36
+2 × 18
+3 × 12
+4 × 9
+6 × 6 ✅
+9 × 4 ← same as before but flipped
+12 × 3
+...
+See? Once we hit 6 × 6, the factors start repeating in reverse.
+So if you find no factors before the square root, you won’t find any after either.
+🧠 Why does this help?
+Instead of checking numbers all the way up to num / 2 or num - 1,
+you can stop early at √num, which makes it much faster.
+
+
+-------------------------------------------------------------------------------------
+
+for (int i = 2; i <= Math.sqrt(num); ++i)
+vs
+for (int i = 2; i <= Math.sqrt(num); i++)
+And the answer is:
+
+🔹 There is no difference in functionality between ++i and i++ in this case.
+
+🧠 Let’s break it down:
+📌 i++ (Post-increment)
+The variable is incremented after its current value is used.
+
+📌 ++i (Pre-increment)
+The variable is incremented before its current value is used.
+
+🧪 In the context of a for loop:
+
+for (int i = 2; i <= Math.sqrt(num); i++) { ... }
+
+for (int i = 2; i <= Math.sqrt(num); ++i) { ... }
+✅ In both cases:
+
+The condition i <= Math.sqrt(num) is checked.
+
+The loop body is executed.
+
+Then i is incremented.
+
+Then the condition is checked again.
+
+So the increment happens after the body, and it doesn't matter if it's i++ or ++i.
+
+🔍 So why choose one over the other?
+🟩 Use ++i: (in Java	Optional)
+Slightly more efficient in C++ (especially for objects like iterators).
+Some developers prefer it as a habit for performance (even though in Java, it's negligible).
+
+🟩 Use i++:
+More common and readable in Java.
+Most Java developers use i++ in loops.
